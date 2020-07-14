@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="style.css">
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Work+Sans:wght@500&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <div class="header">
+            <div class="topnav">
+                <a class="titleHeader">Search Algorithm Visualizer</a>
+                <a class="size">Grid Size</a>
+                    <input id="mySize" type="range" min="5" max="21" value="13" class="sizeslider" 
+                    step="1">
+                <a class="speed">Speed</a>
+                    <input id="mySpeed" type="range" min="10" max="13" value="11.5" class="speedslider"
+                    step="0.5" >
+                <a class="algorithms">Algorithms
+                    <div class="algolist">
+                        <select name="" id="algos">
+                            <option value='linearSearch'>Linear Search</option>
+                            <option value='binarySearch'>Binary Search</option>
+                            <option value='exponentialSearch'>Exponential Search</option>
+                            <option value='depthFirstSearch'>Depth First Search</option>
+                            <option value='breadthFirstSearch'>Breadth First Search</option>
+                        </select>
+                    </div>
+                </a>
+                <button id="randomizebtn">Randomize</button>
+                <button id="runbtn">Run</button>
+            </div>
+        </div>
+        <div id="grid">
+            <table id='cellcontainer'>
+                <tbody id='gridbody'>
+                </tbody>
+            </table>
+        </div>
+        <script type='module' src="script.js" async defer></script>
+    </body>
+</html>
