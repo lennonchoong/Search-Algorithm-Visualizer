@@ -1,4 +1,4 @@
-export {linearSearch, binarySearch, exponentialSearch};
+export {linearSearch, binarySearch, exponentialSearch, jumpSearch};
 
 /************************************************************************/
 
@@ -25,7 +25,7 @@ function linearSearch(selectedCell, grid, speed) {
 /************************************************************************/
 
 function binarySearch(selectedCell, grid, speed) {
-    let middleIndex, middleCell;
+    let middleIndex, middleCell, leftoverPartition;
     
     middleIndex = Math.round(grid.length/2);
     
@@ -70,7 +70,7 @@ function exponentialSearch(selectedCell, grid, speed) {
     
     let arr = [1];
 
-    while (i < grid.length && +grid[i].innerHTML <= +selectedCell.innerHTML){
+    while (i < grid.length && +grid[i].innerHTML < +selectedCell.innerHTML){
         if (i * 2 < grid.length) {
             i *= 2
         } else {
@@ -79,8 +79,9 @@ function exponentialSearch(selectedCell, grid, speed) {
         
         arr.push(i);
     }
-    let speedA, speedB, index;
 
+    let speedA, speedB, index;
+    
     speedA = 500;
     index = 1
     
@@ -102,9 +103,67 @@ function exponentialSearch(selectedCell, grid, speed) {
 
         speedA = speedB;
     }
-    
+
     setTimeout(function () {
-        return binarySearch(selectedCell, grid.splice(i/2, Math.min((i + 1), grid.length)), speed)
+        return binarySearch(selectedCell, grid.slice(arr[arr.length - 2], i + 1), speed)
     }, speedB);
 }
 
+/************************************************************************/
+
+function jumpSearch(selectedCell, grid, speed) {
+    let step = Math.round(Math.sqrt(grid.length));
+    
+    let prev = 0;
+
+    let speedA = 500;
+
+    let arr = [];
+
+    let linearSearchArr = [];
+
+    while (+grid[(Math.min(step, grid.length) - 1)].innerHTML < +selectedCell.innerHTML) {
+        prev = step;
+
+        arr.push(prev-1);
+
+        step += Math.round(Math.sqrt(grid.length));
+    }
+
+    step -= 1;
+
+    arr.push(step);
+
+    while (+grid[step].innerHTML != +selectedCell.innerHTML) {
+        linearSearchArr.push(grid[step]);
+        step--
+    }
+
+    for (let elem of arr) {
+        setTimeout(function () {
+            grid[elem].classList.add('lowHighBounds')
+        }, speedA)
+        
+        speedA = speedA + 80 * speed;
+
+        setTimeout(function () {
+            grid[elem].classList.remove('lowHighBounds')
+        }, speedA)
+    }
+    
+    for (let cell of linearSearchArr) {
+        setTimeout(function () {
+            cell.classList.add('visitedCell')
+        }, speedA)
+        
+        speedA = speedA + 80 * speed;
+
+        setTimeout(function () {
+            cell.classList.remove('visitedCell')
+        }, speedA)
+    }
+    
+    setTimeout(function () {
+        grid[step].style.backgroundColor = '#00ff00'
+    }, speedA + 80 * speed)
+}

@@ -1,6 +1,6 @@
 import {createGrid, positionGridCenter, randomizeGrid} from './grid.js'
 
-import {linearSearch, binarySearch, exponentialSearch} from './algorithms.js'
+import {linearSearch, binarySearch, exponentialSearch, jumpSearch} from './algorithms.js'
 
 let sizeSlider = document.getElementById("mySize");
 
@@ -14,6 +14,7 @@ let algoPairs = {
     "linearSearch": linearSearch,
     "binarySearch": binarySearch,
     "exponentialSearch": exponentialSearch,
+    "jumpSearch": jumpSearch
     /*"depthFirstSearch": depthFirstSearch,
     "breadthFirstSearch": breadthFirstSearch*/
 }
@@ -44,6 +45,10 @@ algos.addEventListener("change", function(){
             randomizebtn.style.opacity = 0.5;
             randomizebtn.style.cursor = 'default';
             break;
+        case "jumpSearch":
+            randomizebtn.style.opacity = 0.5;
+            randomizebtn.style.cursor = 'default';
+            break;
         default:
             randomizebtn.style.opacity = 1;
             randomizebtn.style.cursor = 'pointer'
@@ -54,7 +59,7 @@ algos.addEventListener("change", function(){
 //event listener on randomize button
 randomizebtn.addEventListener("click", function() {
     //prevents randomizing grid on binary search
-    if (algos.value === 'binarySearch' || algos.value === 'exponentialSearch') {
+    if (algos.value === 'binarySearch' || algos.value === 'exponentialSearch' || algos.value === 'jumpSearch') {
         return false;
     }
     clearSelectedCell();

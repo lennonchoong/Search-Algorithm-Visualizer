@@ -158,9 +158,11 @@ body {
 }
 
 .visitedCell {
-    transition-property: background-color;
-    transition-duration: 0.05s;
     background-color: yellow;
+}
+
+.leftoverPartition {
+    background-color: orange;
 }
 
 .reachedCell {
