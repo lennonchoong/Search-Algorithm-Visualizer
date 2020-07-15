@@ -1,6 +1,6 @@
 import {createGrid, positionGridCenter, randomizeGrid} from './grid.js'
 
-import {linearSearch, binarySearch, exponentialSearch, jumpSearch} from './algorithms.js'
+import {linearSearch, binarySearch, exponentialSearch, jumpSearch, breadthFirstSearch, depthFirstSearch} from './algorithms.js'
 
 let sizeSlider = document.getElementById("mySize");
 
@@ -14,9 +14,9 @@ let algoPairs = {
     "linearSearch": linearSearch,
     "binarySearch": binarySearch,
     "exponentialSearch": exponentialSearch,
-    "jumpSearch": jumpSearch
-    /*"depthFirstSearch": depthFirstSearch,
-    "breadthFirstSearch": breadthFirstSearch*/
+    "jumpSearch": jumpSearch,
+    "depthFirstSearch": depthFirstSearch,
+    "breadthFirstSearch": breadthFirstSearch
 }
 
 sizeSlider.addEventListener("input", function(){

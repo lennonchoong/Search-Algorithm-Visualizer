@@ -1,5 +1,5 @@
 body {
-    background-color: black;
+    background-color: #24252b;
     background-size: cover;
     max-width: 100%;
     overflow-x: hidden;
@@ -136,7 +136,7 @@ body {
 #grid{
     top: 100px;
     position: absolute;
-    background-color: white; 
+    background-color: #24252b; 
     width: 800px;
 }
 
@@ -145,11 +145,12 @@ body {
 }
 
 .cells {
-    border: 1px solid #222222;
+    border: 1px solid #A9A9B0;
     border-collapse: collapse;
     padding: 0;
     text-align: center;
     font-family: 'Montserrat', sans-serif;
+    color: #A9A9B0;
     cursor: pointer;
 }
 
@@ -162,7 +163,7 @@ body {
 }
 
 .leftoverPartition {
-    background-color: orange;
+    background-color: rgba(255, 255, 0, 0.30);
 }
 
 .reachedCell {

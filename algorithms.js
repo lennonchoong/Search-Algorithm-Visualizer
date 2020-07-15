@@ -1,4 +1,4 @@
-export {linearSearch, binarySearch, exponentialSearch, jumpSearch};
+export {linearSearch, binarySearch, exponentialSearch, jumpSearch, breadthFirstSearch, depthFirstSearch};
 
 /************************************************************************/
 
@@ -25,14 +25,27 @@ function linearSearch(selectedCell, grid, speed) {
 /************************************************************************/
 
 function binarySearch(selectedCell, grid, speed) {
-    let middleIndex, middleCell, leftoverPartition;
+    let middleIndex, middleCell;
     
     middleIndex = Math.round(grid.length/2);
     
     middleCell = grid[middleIndex];
 
+    if (grid.length == 1 && grid.includes(selectedCell)) {
+        return selectedCell
+    } 
+    let leftoverPartition;
+    if (+selectedCell.innerHTML < +middleCell.innerHTML) {
+        leftoverPartition = grid.slice(middleIndex);
+        grid = grid.slice(0, middleIndex);
+    } else {
+        leftoverPartition = grid.slice(0,middleIndex);
+        grid = grid.slice(middleIndex);
+    }
+    
     setTimeout(function (){
-        return grid.map((cell) => cell.classList.add('visitedCell'))
+        leftoverPartition.map((cell) => cell.classList.add('leftoverPartition'))
+        grid.map((cell) => cell.classList.add('visitedCell'))
     }, (speed));
 
     setTimeout(function () {
@@ -40,18 +53,9 @@ function binarySearch(selectedCell, grid, speed) {
             selectedCell.style.backgroundColor = "#00ff00";
         }
 
-        return grid.map((cell) => cell.classList.remove('visitedCell'))
+        leftoverPartition.map((cell) => cell.classList.remove('leftoverPartition'))
+        grid.map((cell) => cell.classList.remove('visitedCell'))
     }, (speed * 3) * 100);
-
-    if (grid.length == 1 && grid.includes(selectedCell)) {
-        return selectedCell
-    } 
-
-    if (+selectedCell.innerHTML < +middleCell.innerHTML) {
-        grid = grid.slice(0, middleIndex);
-    } else {
-        grid = grid.slice(middleIndex);
-    }
 
     setTimeout(function() {
         binarySearch(selectedCell, grid, speed);
@@ -86,7 +90,7 @@ function exponentialSearch(selectedCell, grid, speed) {
     index = 1
     
     for (let j = 1; j < arr.length; j++) {
-        speedB = speedA + 300 * speed
+        speedB = speedA + 180 * speed
 
         setTimeout(function() {
             grid[arr[index - 1]].classList.add('lowHighBounds');
@@ -144,7 +148,7 @@ function jumpSearch(selectedCell, grid, speed) {
             grid[elem].classList.add('lowHighBounds')
         }, speedA)
         
-        speedA = speedA + 80 * speed;
+        speedA = speedA + 45 * speed;
 
         setTimeout(function () {
             grid[elem].classList.remove('lowHighBounds')
@@ -156,7 +160,7 @@ function jumpSearch(selectedCell, grid, speed) {
             cell.classList.add('visitedCell')
         }, speedA)
         
-        speedA = speedA + 80 * speed;
+        speedA = speedA + 45 * speed;
 
         setTimeout(function () {
             cell.classList.remove('visitedCell')
@@ -165,5 +169,115 @@ function jumpSearch(selectedCell, grid, speed) {
     
     setTimeout(function () {
         grid[step].style.backgroundColor = '#00ff00'
-    }, speedA + 80 * speed)
+    }, speedA + 45 * speed)
+}
+
+/************************************************************************/
+
+function breadthFirstSearch(selectedCell, grid, speed) {
+    let matrix = create2DMatrix(grid);
+
+    let queue = [];
+
+    queue.push(0 + ',' + 0);
+    
+    let visited = new Set();
+
+    let speedA = 500;
+
+    while (queue.length != 0) {
+
+        let x = queue.shift();
+
+        let row = +(x.split(',')[0]);
+
+        let col = +(x.split(',')[1]);
+        
+        if (row < 0 || col < 0 || row >= Math.sqrt(grid.length) || col >= Math.sqrt(grid.length) || visited.has(x)) {
+            continue;
+        }
+
+        visited.add(x);
+        queue.push(row + ',' + (col - 1)); //left
+        queue.push(row + ',' + (col + 1)); //right
+        queue.push((row - 1) + ',' + col ); //up
+        queue.push((row + 1) + ',' + col ); //down
+        
+        setTimeout(function () {
+            matrix[row][col].classList.add('visitedCell');
+        }, speedA);
+
+        speedA = speedA + 30 * speed;
+
+        if (matrix[row][col].innerHTML === selectedCell.innerHTML) {
+            setTimeout(function () {
+                grid.filter((cell) => cell.classList.contains('visitedCell')).map((cell) => cell.classList.remove('visitedCell'));
+                selectedCell.style.backgroundColor = "#00ff00";
+            }, speedA)
+            break;
+        } 
+    }
+}
+
+/************************************************************************/
+
+function depthFirstSearch(selectedCell, grid, speed) {
+    let matrix = create2DMatrix(grid);
+
+    let queue = [];
+
+    queue.push(0 + ',' + 0);
+    
+    let visited = new Set();
+
+    let speedA = 500;
+
+    while (queue.length != 0) {
+
+        let x = queue.pop();
+
+        let row = +(x.split(',')[0]);
+
+        let col = +(x.split(',')[1]);
+        
+        if (row < 0 || col < 0 || row >= Math.sqrt(grid.length) || col >= Math.sqrt(grid.length) || visited.has(x)) {
+            continue;
+        }
+
+        visited.add(x);
+        queue.push(row + ',' + (col - 1)); //left
+        queue.push(row + ',' + (col + 1)); //right
+        queue.push((row - 1) + ',' + col ); //up
+        queue.push((row + 1) + ',' + col ); //down
+        
+        setTimeout(function () {
+            matrix[row][col].classList.add('visitedCell');
+        }, speedA);
+
+        speedA = speedA + 30 * speed;
+
+        if (matrix[row][col].innerHTML === selectedCell.innerHTML) {
+            setTimeout(function () {
+                grid.filter((cell) => cell.classList.contains('visitedCell')).map((cell) => cell.classList.remove('visitedCell'));
+                selectedCell.style.backgroundColor = "#00ff00";
+            }, speedA)
+            break;
+        } 
+    }
+}
+
+/************************************************************************/
+
+function create2DMatrix(grid) {
+    let i = 0;
+    let matrix = [];
+    for (let j = 0; j < Math.sqrt(grid.length); j ++) {
+        let row = [];
+        for (let k = 0; k < Math.sqrt(grid.length); k ++) {
+            row.push(grid[i]);
+            i ++
+        }
+        matrix.push(row);
+    }
+    return matrix
 }
