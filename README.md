@@ -1,4 +1,4 @@
-# Search-Algorithm-Visualizer
+# Search Algorithm Visualizer
 Check this project out [**here**](https://lennonchoong.github.io/Search-Algorithm-Visualizer/)!<br/>Please use the most recent version of your browser (preferably Google Chrome).
 
 ## About This Project
