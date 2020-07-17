@@ -70,6 +70,11 @@ let state = true;
 
 //event listener on run button to run algorithm
 runbtn.addEventListener('click', () => runAlgorithm());
+document.addEventListener('keydown', function(event) {
+    if (event.code === "Enter") {
+        runAlgorithm();
+    }
+})
 
 //event delegation on table, allows for selection of single cell
 cellcontainer.addEventListener('click', () => {clickHandler(event)});
