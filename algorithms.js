@@ -126,6 +126,11 @@ function jumpSearch(selectedCell, grid, speed) {
 
     let linearSearchArr = [];
 
+    if (+selectedCell.innerHTML == 1) {
+        selectedCell.style.backgroundColor = "#00ff00";
+        return;
+    }
+
     while (+grid[(Math.min(step, grid.length) - 1)].innerHTML < +selectedCell.innerHTML) {
         prev = step;
 
