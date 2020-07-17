@@ -16,7 +16,7 @@ let algoPairs = {
     "exponentialSearch": exponentialSearch,
     "jumpSearch": jumpSearch,
     "depthFirstSearch": depthFirstSearch,
-    "breadthFirstSearch": breadthFirstSearch
+    "breadthFirstSearch": breadthFirstSearch,
 }
 
 sizeSlider.addEventListener("input", function(){

@@ -224,17 +224,17 @@ function breadthFirstSearch(selectedCell, grid, speed) {
 function depthFirstSearch(selectedCell, grid, speed) {
     let matrix = create2DMatrix(grid);
 
-    let queue = [];
+    let stack = [];
 
-    queue.push(0 + ',' + 0);
+    stack.push(0 + ',' + 0);
     
     let visited = new Set();
 
     let speedA = 500;
 
-    while (queue.length != 0) {
-
-        let x = queue.pop();
+    while (stack.length != 0) {
+        
+        let x = stack.pop();
 
         let row = +(x.split(',')[0]);
 
@@ -245,10 +245,10 @@ function depthFirstSearch(selectedCell, grid, speed) {
         }
 
         visited.add(x);
-        queue.push(row + ',' + (col - 1)); //left
-        queue.push(row + ',' + (col + 1)); //right
-        queue.push((row - 1) + ',' + col ); //up
-        queue.push((row + 1) + ',' + col ); //down
+        stack.push(row + ',' + (col - 1)); //left
+        stack.push(row + ',' + (col + 1)); //right
+        stack.push((row - 1) + ',' + col ); //up
+        stack.push((row + 1) + ',' + col ); //down
         
         setTimeout(function () {
             matrix[row][col].classList.add('visitedCell');
