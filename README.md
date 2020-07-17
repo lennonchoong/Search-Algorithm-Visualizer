@@ -8,10 +8,10 @@ This project showcases the visualizations of various search algorithms in pinpoi
 #### Running the algorithm
 Run the algorithm by either hitting your keyboard's **ENTER** key or press the **Run** button on the top-right corner. 
 
-#### Randomizing array
+#### Randomizing grid
 Click the **Randomize** button to randomize the cells. Grid randomization is only allowed for algorithms which can search a non-sorted array.
 
-#### Selecting algorithm
+#### Selecting an algorithm
 Select from the list of algorithms from the dropdown selection next to **Algorithms**.
 
 #### Changing grid size
