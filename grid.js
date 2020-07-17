@@ -23,9 +23,9 @@ function createGrid(gridSize) {
     let cellCollection = document.querySelectorAll('.cells');
     
     Array.from(cellCollection).map((cell) => {
-        cell.style.width = Math.floor(800/gridSize) + 'px';
-        cell.style.height = Math.floor(800/gridSize) + 'px';
-        cell.style.fontSize = Math.floor(0.4 * 800/gridSize) + 'px';
+        cell.style.width = Math.floor(650/gridSize) + 'px';
+        cell.style.height = Math.floor(650/gridSize) + 'px';
+        cell.style.fontSize = Math.floor(0.4 * 650/gridSize) + 'px';
     })
 
     assignValuetoGrid();
