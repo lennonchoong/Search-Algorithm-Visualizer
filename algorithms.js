@@ -3,6 +3,10 @@ export {linearSearch, binarySearch, exponentialSearch, jumpSearch, breadthFirstS
 /************************************************************************/
 
 function linearSearch(selectedCell, grid, speed) {
+    if (+selectedCell.innerHTML === 1) {
+        selectedCell.style.backgroundColor = "#00ff00";
+    }
+    
     for (let i = 0; i < grid.length; i++) {
         if (grid[i].innerHTML === selectedCell.innerHTML && selectedCell) {
             break;
